@@ -7,8 +7,8 @@ Works with Claude Code, Codex CLI, and any tool supporting the open Agent Skills
 
 **Claude Code**
 \`\`\`bash
-cp -r trohub-ip-check ~/.claude/skills/       
-cp -r trohub-ip-check .claude/skills/     
+cp -r trohub-ip-check ~/.claude/skills/        # 全局
+cp -r trohub-ip-check .claude/skills/          # 项目级
 \`\`\`
 
 **Codex CLI**
