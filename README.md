@@ -7,8 +7,11 @@ Works with Claude Code, Codex CLI, and any tool supporting the open Agent Skills
 
 **Claude Code**
 \`\`\`bash
-cp -r trohub-ip-check ~/.claude/skills/        # 全局
-cp -r trohub-ip-check .claude/skills/          # 项目级
+cp -r trohub-ip-check ~/.claude/skills/        # global
+\`\`\`
+
+\`\`\`bash
+cp -r trohub-ip-check .claude/skills/          # project
 \`\`\`
 
 **Codex CLI**
@@ -17,6 +20,7 @@ cp -r trohub-ip-check ~/.codex/skills/
 \`\`\`
 
 ## What's included
+
 - `trohub-ip-check/SKILL.md` — main skill instructions
 - `trohub-ip-check/scripts/trohub_client.py` — ready-to-run Python client + CLI
 - `trohub-ip-check/references/` — detailed API reference per module
