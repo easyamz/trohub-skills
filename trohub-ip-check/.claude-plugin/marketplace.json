@@ -1,0 +1,17 @@
+{
+  "name": "trohub-skills",
+  "owner": {
+    "name": "easyamz"
+  },
+  "description": "IP infringement risk-checking skills for cross-border e-commerce sellers, powered by the TROHUB API.",
+  "plugins": [
+    {
+      "name": "trohub-ip-check",
+      "source": "./",
+      "description": "Check products, listings, and images for US trademark, US,EUIPO design patent, and copyright infringement risk before selling on Amazon, TikTok Shop, eBay, or Shopify.",
+      "version": "1.0.0",
+      "skills": ["./trohub-ip-check"],
+      "strict": false
+    }
+  ]
+}
