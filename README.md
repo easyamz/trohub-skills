@@ -28,13 +28,12 @@ You need a TROHUB account and API key before any tool can actually call the API 
 
 1. Sign up / log in at [app.trohub.com](https://app.trohub.com)
 2. Get your API key from **Account → API Keys**: `https://app.trohub.com/account/api-keys`
-3. Get your account's actual API base URL (the public docs show a placeholder `https://*.api.trohub.com/v1` — your dashboard shows the real subdomain)
 
 Keep both handy — every tool below needs them as environment variables:
 
 ```bash
 export TROHUB_API_KEY="your_api_key_here"
-export TROHUB_BASE_URL="https://YOUR-SUBDOMAIN.api.trohub.com/v1"
+export TROHUB_BASE_URL="https://api.trohub.com/v1"
 ```
 
 Add these two lines to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.) so you don't have to re-set them every session.
