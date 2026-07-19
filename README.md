@@ -2,6 +2,9 @@
 
 Agent Skills for the [TROHUB API](https://open.trohub.com/) — an IP (intellectual property) risk-checking service for cross-border e-commerce sellers. Covers US/EU design patent search, US word-trademark conflict checks, graphic trademark image search, global copyright/artwork tracing, and TRO (Temporary Restraining Order) lawsuit monitoring.
 
+> **🌐 中文版文档** — 如果你更习惯阅读中文，请查看 [README_zh.md](./README_zh.md)。
+> **📖 Chinese version** — If you prefer reading in Chinese, check out [README_zh.md](./README_zh.md).
+
 Built on the open [Agent Skills](https://agentskills.io) standard (`SKILL.md` + optional `scripts/`/`references/`), so the same skill folder works across Claude Code, Codex CLI, Cursor, and other compatible AI coding tools — install once, no rewriting needed per tool.
 
 ## What's included

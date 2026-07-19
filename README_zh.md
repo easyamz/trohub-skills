@@ -2,6 +2,8 @@
 
 面向跨境电商卖家的 [TROHUB API](https://open.trohub.com/) 对应的 Agent Skill —— 一个知识产权（IP）风险检测服务，覆盖美国/欧盟外观专利检索、美国文字商标冲突检测、图形商标以图搜图、全球版权/美术作品溯源，以及 TRO（临时禁令）诉讼监控。
 
+> **📖 English docs** — If you prefer reading in English, check out [README.md](./README.md).
+
 基于开放的 [Agent Skills](https://agentskills.io) 标准构建（`SKILL.md` + 可选的 `scripts/`/`references/`），所以同一个 skill 文件夹可以在 Claude Code、Codex CLI、Cursor 以及其他兼容的 AI 编程工具中直接使用——装一次即可，不用为每个工具重新改写。
 
 ## 包含内容
