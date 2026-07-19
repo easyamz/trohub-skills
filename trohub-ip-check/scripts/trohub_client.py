@@ -13,7 +13,7 @@ Covers every endpoint in the TROHUB docs (https://open.trohub.com/):
 Usage
 -----
     export TROHUB_API_KEY="your_api_key_here"
-    export TROHUB_BASE_URL="https://YOUR-SUBDOMAIN.api.trohub.com/v1"   # from your account
+    export TROHUB_BASE_URL="https://api.trohub.com/v1"
 
     python -m scripts.trohub_client tro-recent --days 7 --limit 20
     python -m scripts.trohub_client check-title --title "Ergonomic Chair"
@@ -87,12 +87,10 @@ class TrohubClient:
             )
 
         self.base_url = (base_url or os.environ.get("TROHUB_BASE_URL", "")).rstrip("/")
-        if not self.base_url or "*" in self.base_url:
+        if not self.base_url:
             raise ValueError(
-                "No valid base URL provided. TROHUB docs show a placeholder like "
-                "'https://*.api.trohub.com/v1' — replace '*' with your account's actual "
-                "subdomain (check your TROHUB dashboard or API docs page), then pass "
-                "base_url=... or set the TROHUB_BASE_URL env var."
+                "No base URL provided. Pass base_url='https://api.trohub.com/v1' or "
+                "set the TROHUB_BASE_URL env var."
             )
 
         self.session = session or requests.Session()

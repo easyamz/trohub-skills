@@ -149,7 +149,7 @@ If a tool doesn't yet support Agent Skills at all, you can usually still get val
 | Env var | Required | Description |
 |---|---|---|
 | `TROHUB_API_KEY` | yes | From `https://app.trohub.com/account/api-keys` |
-| `TROHUB_BASE_URL` | yes | Your account's actual API base URL (replace the `*` placeholder shown in the public docs) |
+| `TROHUB_BASE_URL` | yes | Always `https://api.trohub.com/v1` — set it and forget it |
 
 The bundled `scripts/trohub_client.py` reads both from the environment automatically — see `trohub-ip-check/scripts/README.md` for full CLI and library usage.
 

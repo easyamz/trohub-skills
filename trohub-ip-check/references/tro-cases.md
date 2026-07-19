@@ -23,7 +23,7 @@ Get a list of recently filed TRO cases (up to the last 7 days).
 
 **curl**
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/tro/recent" \
+curl -X POST "https://api.trohub.com/v1/tro/recent" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"days":7,"limit":50}'
@@ -33,7 +33,7 @@ curl -X POST "https://*.api.trohub.com/v1/tro/recent" \
 ```python
 import requests
 
-url = "https://*.api.trohub.com/v1/tro/recent"
+url = "https://api.trohub.com/v1/tro/recent"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {"days": 7, "limit": 50}
 
@@ -80,7 +80,7 @@ Get all filed documents ("entries") for one specific case, including complaint P
 
 **curl**
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/tro/entries" \
+curl -X POST "https://api.trohub.com/v1/tro/entries" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"docketID":"fdb41b2e-8e56-4eb8-96ef-042d919c5e01"}'
@@ -90,7 +90,7 @@ curl -X POST "https://*.api.trohub.com/v1/tro/entries" \
 ```python
 import requests
 
-url = "https://*.api.trohub.com/v1/tro/entries"
+url = "https://api.trohub.com/v1/tro/entries"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {"docketID": "fdb41b2e-8e56-4eb8-96ef-042d919c5e01"}
 

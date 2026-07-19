@@ -21,14 +21,14 @@ Global copyright/artwork trace search (async task) — checks an image (artwork,
 | `images[].searchScope.copyright.minHeight` | number | no | `80` | px |
 
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/infringement" \
+curl -X POST "https://api.trohub.com/v1/infringement" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"taskID":"copyright-demo-uuid","images":[{"imageID":"img-cr-001","image":"https://example.com/images/artwork.jpg","searchScope":{"copyrightEnabled":true,"copyright":{"autoSegment":false}}}]}'
 ```
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/infringement"
+url = "https://api.trohub.com/v1/infringement"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {
     "taskID": "copyright-demo-uuid",

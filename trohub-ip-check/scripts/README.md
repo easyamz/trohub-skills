@@ -9,7 +9,7 @@ already built in — don't hand-roll `requests` calls from scratch, use/extend t
 ```bash
 pip install -r requirements.txt
 export TROHUB_API_KEY="your_api_key_here"
-export TROHUB_BASE_URL="https://YOUR-SUBDOMAIN.api.trohub.com/v1"   # replace with the real subdomain from the user's account
+export TROHUB_BASE_URL="https://api.trohub.com/v1"
 ```
 
 ## CLI usage
@@ -45,7 +45,7 @@ python -m scripts.trohub_client retry-task --task-id h0d0a0b3-f09c-4824-a745-0d2
 from scripts.trohub_client import TrohubClient, TrohubAPIError, TrohubTaskTimeout
 
 client = TrohubClient()  # reads TROHUB_API_KEY / TROHUB_BASE_URL from env
-# or: TrohubClient(api_key="...", base_url="https://your-subdomain.api.trohub.com/v1")
+# or: TrohubClient(api_key="...", base_url="https://api.trohub.com/v1")
 
 # One-shot: submit + poll + get final result, for one image across one or more sources
 result = client.check_image(

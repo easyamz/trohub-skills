@@ -23,14 +23,14 @@ Synchronously extracts n-grams/keywords from your listing title, short descripti
 | `customStopWords` | string[] | no | `[]` | Extra words to exclude from analysis (e.g. generic terms specific to your niche) |
 
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/trademarks/word-mark/keyword-search" \
+curl -X POST "https://api.trohub.com/v1/trademarks/word-mark/keyword-search" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"title":"Ergonomic Chair","shortDesc":"Comfortable design for office work","desc":"A mesh back ergonomic office chair featuring dynamic lumbar support.","classCodes":["020"],"skipStopWords":true,"skipNumbers":true,"customStopWords":["chair","desk"]}'
 ```
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/trademarks/word-mark/keyword-search"
+url = "https://api.trohub.com/v1/trademarks/word-mark/keyword-search"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {
     "title": "Ergonomic Chair",
@@ -95,14 +95,14 @@ Submit a logo/graphic image to search for visually similar registered graphic tr
 | `images[].searchScope.trademark.countries` | array | yes | `["US"]` | **Currently only `["US"]` is supported** |
 
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/infringement/image-search" \
+curl -X POST "https://api.trohub.com/v1/infringement/image-search" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"taskID":"trademark-demo-uuid","images":[{"imageID":"img-tm-001","image":"https://example.com/images/logo.png","searchScope":{"trademarkEnabled":true,"trademark":{"autoSegment":false,"countries":["US"]}}}]}'
 ```
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/infringement/image-search"
+url = "https://api.trohub.com/v1/infringement/image-search"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {
     "taskID": "trademark-demo-uuid",

@@ -16,7 +16,7 @@ This skill tells you (the coding agent) how to call the API correctly, and ships
 ```bash
 pip install -r scripts/requirements.txt
 export TROHUB_API_KEY="..."
-export TROHUB_BASE_URL="https://YOUR-SUBDOMAIN.api.trohub.com/v1"
+export TROHUB_BASE_URL="https://api.trohub.com/v1"
 
 python -m scripts.trohub_client check-image --image https://example.com/product.jpg \
   --sources designPatent --product-name "wireless headphone"
@@ -45,7 +45,7 @@ If the user's task needs something the script doesn't cover (a different languag
 
 ## Before you write any code
 
-1. **Base URL.** The docs show `https://*.api.trohub.com/v1` — the `*` is a placeholder subdomain that is specific to each account/environment. Ask the user for their actual base URL (they'll find it next to the sandbox tester on each doc page, or their account dashboard), or use whatever base URL they've already given you. Don't invent a real hostname to replace the `*`.
+1. **Base URL.** Use `https://api.trohub.com/v1` for every API call. The public docs might show a star-wildcard hostname (`https://*.api.trohub.com/v1`) as a formatting placeholder, but the actual service is served at the single, unified hostname. Just hardcode it — no per-account subdomain to figure out.
 2. **API key.** Every request needs a header:
    ```
    X-API-Key: your_api_key_here

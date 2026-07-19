@@ -149,7 +149,7 @@ cp -r trohub-skills/trohub-ip-check .cursor/skills/
 | 环境变量 | 是否必填 | 说明 |
 |---|---|---|
 | `TROHUB_API_KEY` | 是 | 从 `https://app.trohub.com/account/api-keys` 获取 |
-| `TROHUB_BASE_URL` | 是 | 你账号对应的实际 API 地址（如果公开文档里显示的是带 `*` 的占位域名，记得换成你账号的真实子域名） |
+| `TROHUB_BASE_URL` | 是 | 固定为 `https://api.trohub.com/v1`，直接使用即可 |
 
 内置的 `scripts/trohub_client.py` 会自动从环境变量里读取这两项——完整的命令行和库用法请看 `trohub-ip-check/scripts/README.md`。
 

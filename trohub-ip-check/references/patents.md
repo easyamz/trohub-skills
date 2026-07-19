@@ -17,14 +17,14 @@ Synchronously returns, for each patent number given, its cited (prior-art) paten
 | `patentNumbers` | array | yes | 1–50 **US design patent numbers only**. Format: `D` or `USD` followed by 6–7 digits, e.g. `D905805`, `USD1084931` |
 
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/patents/design/reverse-search" \
+curl -X POST "https://api.trohub.com/v1/patents/design/reverse-search" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"patentNumbers":["D905805","D1010755","USD1084931"]}'
 ```
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/patents/design/reverse-search"
+url = "https://api.trohub.com/v1/patents/design/reverse-search"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {"patentNumbers": ["D905805", "D1010755", "USD1084931"]}
 print(requests.post(url, headers=headers, json=payload).json())
@@ -100,14 +100,14 @@ Submit a product photo to search for visually similar design patents. This reuse
 | `images[].searchScope.designPatent.countries` | array | yes | `["US"]` | e.g. `["US", "EU"]` |
 
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/infringement" \
+curl -X POST "https://api.trohub.com/v1/infringement" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"taskID":"patent-demo-uuid","images":[{"imageID":"img-dp-001","image":"https://example.com/images/product.jpg","searchScope":{"designPatentEnabled":true,"designPatent":{"autoSegment":false,"removeBg":false,"countries":["US"],"productName":"wireless headphone"}}}]}'
 ```
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/infringement"
+url = "https://api.trohub.com/v1/infringement"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {
     "taskID": "patent-demo-uuid",
