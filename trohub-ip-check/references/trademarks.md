@@ -119,4 +119,4 @@ print(requests.post(url, headers=headers, json=payload).json())
 ```json
 { "success": true, "message": "Element search tasks submitted successfully", "data": { "taskIDs": ["h0d0a0b3-f09c-4824-a745-0d29759c253h"] } }
 ```
-Then poll `GET /infringement/status/:taskID` — see `references/infringement-tasks.md` for `searchResults.trademark[]` field details (`markText`, `similarity`, `score`, `reason`, `status` LIVE/DEAD, `legalStatus`, etc) and the `queryAssessment` (known-IP) fields, which **are** returned for trademark checks.
+Then poll `GET /infringement/status/:taskID` — see `references/infringement-tasks.md` for `searchResults.trademark[]` field details (`markText`, `similarity`, `score`, `reason`, `status` LIVE/DEAD, `legalStatus`, etc) and the `copyrightTrace.ipCheck` (known-IP) fields, which **are** returned for trademark checks.

@@ -45,7 +45,7 @@ If the user's task needs something the script doesn't cover (a different languag
 
 ## Before you write any code
 
-1. **Base URL.** Use `https://api.trohub.com/v1` for every API call. The public docs might show a star-wildcard hostname (`https://*.api.trohub.com/v1`) as a formatting placeholder, but the actual service is served at the single, unified hostname. Just hardcode it — no per-account subdomain to figure out.
+1. **Base URL.** Use `https://api.trohub.com/v1` for every API call. The public docs might show a star-wildcard hostname (`https://api.trohub.com/v1`) as a formatting placeholder, but the actual service is served at the single, unified hostname. Just hardcode it — no per-account subdomain to figure out.
 2. **API key.** Every request needs a header:
    ```
    X-API-Key: your_api_key_here
@@ -89,7 +89,7 @@ Use `/tro/recent` to list recent dockets, then `/tro/entries` with a `docketID` 
 - **`productName` for design patent search is optional but strongly recommended** — it meaningfully improves match quality (helps filter by product category). Encourage the user to always pass a short product description (e.g. `"wireless headphone"`), not leave it blank.
 - **Design patent numbers must match the format** `D` or `USD` followed by 6–7 digits (e.g. `D905805`, `USD1084931`), otherwise you'll get `VALIDATION_PATENT_NUMBER_INVALID`.
 - **Images can be a public URL or base64** — no need to host the image yourself if the user already has a public product image URL.
-- **`queryAssessment` (whether the image resembles a known/famous IP) is only returned for copyright and trademark checks — never for design patent checks.**
+- **`copyrightTrace.ipCheck` (whether the image resembles a known/famous IP) is only returned for copyright checks** (it is inside `copyrightTrace`, which is copyright-specific). Trademark and design patent searches do not return it.
 
 ## Building a reusable script for the user
 

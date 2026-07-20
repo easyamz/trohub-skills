@@ -52,8 +52,7 @@ Then poll `GET /infringement/status/:taskID`. The copyright-specific result live
 |---|---|
 | `entries[]` | Matched pages/products: `id`, `imageUrl`/`imageKey` (the matched image), `title` (page/product title), `source` (URL where found) |
 | `traceSummary` | AI-written summary describing common characteristics/sources of the matches |
-| `analysis` | Risk rollup: `potentialRightsHolders` (string or `null`), `riskScore` (0–100), `riskLevel` (`low` 0–40 / `medium` 41–70 / `high` 71–90 / `critical` 91–100), `explanation` (plain-language reasoning), `matchedEntries[]` (IDs referencing `entries[]`) |
-
-Copyright checks also return `queryAssessment` per image (whether the image resembles a known/famous IP — character, brand art, etc.), same shape as documented in `references/infringement-tasks.md`.
+| `analysis` | Risk rollup: `potentialRightsHolders` (string[] or `null`), `riskScore` (0–100), `riskLevel` (`low` 0–40 / `medium` 41–70 / `high` 71–90), `explanation` (plain-language reasoning), `matchedEntries[]` (IDs referencing `entries[]`) |
+| `ipCheck` | VLM-based brand/IP recognition: whether the image resembles a known/famous IP (character, brand art, etc.). Only present when the VLM model identified a match. Same shape as documented in `references/infringement-tasks.md` |
 
 **When presenting results to a seller:** lead with `riskLevel` and `traceSummary` in plain language, then list the top few `entries[]` sources as evidence, rather than dumping the full match list — sellers mainly want a clear go/no-go signal plus enough evidence to make their own call.

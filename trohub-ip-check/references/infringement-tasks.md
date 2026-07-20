@@ -34,7 +34,7 @@ There's one shared submission endpoint that can search **one, two, or all three*
 
 **Example — trademark only**
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/infringement/image-search" \
+curl -X POST "https://api.trohub.com/v1/infringement/image-search" \
   -H "X-API-Key: YOUR_API_KEY" -H "Content-Type: application/json" \
   -d '{"taskID":"trademark-demo-uuid","images":[{"imageID":"img-tm-001","image":"https://example.com/images/logo.png","searchScope":{"trademarkEnabled":true,"designPatentEnabled":false,"copyrightEnabled":false,"trademark":{"autoSegment":false,"countries":["US"]}}}]}'
 ```
@@ -43,7 +43,7 @@ curl -X POST "https://*.api.trohub.com/v1/infringement/image-search" \
 ```python
 import requests
 
-url = "https://*.api.trohub.com/v1/infringement"
+url = "https://api.trohub.com/v1/infringement"
 headers = {"X-API-Key": "YOUR_API_KEY", "Content-Type": "application/json"}
 payload = {
     "taskID": "patent-demo-uuid",
@@ -97,14 +97,14 @@ payload = {
 
 **curl**
 ```bash
-curl -X GET "https://*.api.trohub.com/v1/infringement/status/h0d0a0b3-f09c-4824-a745-0d29759c253h" \
+curl -X GET "https://api.trohub.com/v1/infringement/status/h0d0a0b3-f09c-4824-a745-0d29759c253h" \
   -H "X-API-Key: YOUR_API_KEY"
 ```
 
 **Python**
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/infringement/status/h0d0a0b3-f09c-4824-a745-0d29759c253h"
+url = "https://api.trohub.com/v1/infringement/status/h0d0a0b3-f09c-4824-a745-0d29759c253h"
 response = requests.get(url, headers={"X-API-Key": "YOUR_API_KEY"})
 print(response.json())
 ```
@@ -126,19 +126,19 @@ print(response.json())
 |---|---|
 | `imageId` | e.g. `img_{timestamp}_{index}` |
 | `imageUrl` / `imageKey` | Where the (temporarily signed) uploaded image lives |
-| `detections[]` | Auto-detected sub-elements when `autoSegment` was enabled — empty array if not used/found |
+| `segments[]` | Auto-detected sub-element clips when `autoSegment` was enabled — empty array if not used/found. Each segment has its own `searchResults` and `copyrightTrace.ipCheck` |
 | `searchResults` | Contains `trademark[]`, `designPatent[]`, and/or `copyrightTrace` depending on which sources were enabled |
-| `queryAssessment` | Whether the image resembles a known/famous IP. **Only present for copyright & trademark checks — never for design patent.** Fields: `resemblesKnownIP` (bool), `note` (string), `confidence` (`low`/`medium`/`high`), `confidenceScore` (0–100) |
+| `searchResults.copyrightTrace.ipCheck` | VLM-based brand/IP recognition on the image itself. **Only present for copyright checks.** Fields: `resemblesKnownIP` (bool), `matchedIpName` (string, brand/IP name if found), `note` (string), `confidence` (`low`/`medium`/`high`), `confidenceScore` (0–100) |
 | `status` | Per-image status, same values as task status |
 | `searchScope` | Echoes back the config used |
 
-**`detections[]` fields** (only populated when `autoSegment` finds sub-elements): `bbox` ([x,y,width,height]), `label` (e.g. `"[copyright] element description"`), `score` (0–1 confidence), `croppedImage`/`croppedKey`, `isOriginal` (bool), `detectType` (`"copyright"` or `"trademark"`), `searchResults` (same shape as top level), `queryAssessment`.
+**`segments[]` fields** (only populated when `autoSegment` finds sub-elements): `bbox` ([x,y,width,height]), `label` (e.g. `"[copyright] element description"`), `score` (0–1 confidence), `croppedImage`/`croppedKey`, `isOriginal` (bool), `detectType` (`"copyright"`, `"trademark"`, or `"designPatent"`), `searchResults` (same shape as top level, including `copyrightTrace.ipCheck`).
 
-**`searchResults.trademark[]` fields:** `tmClass[]` (nice classification: `code` + `text`), `filingDate`/`regDate` (`YYYYMMDD`, `regDate:"0"` = not yet registered), `owners[]` (`name`+`country`), `regNumber`, `serialNumber`, `status` (`LIVE`/`DEAD`), `legalStatus` (`REGISTERED`/`PENDING`), `similarity` (`"XX.XX%"` string), `score` (0–1 number), `reason` (plain-language similarity/confusion-risk explanation), `imageUrl`, `imageID` (`orig_0` = original image, `det_X_X` = a detected sub-element), `markText` (empty for pure graphic marks).
+**`searchResults.trademark[]` fields:** `tmClass[]` (nice classification: `code` + `text`), `filingDate`/`regDate` (`YYYYMMDD`, `regDate:"0"` = not yet registered), `owners[]` (`name`+`country`), `regNumber`, `serialNumber`, `status` (`LIVE`/`DEAD`), `legalStatus` (`REGISTERED`/`PENDING`), `similarity` (`"XX.XX%"` string), `score` (0–1 number), `reason` (plain-language similarity/confusion-risk explanation), `imageUrl`, `imageID` (`orig_0` = original image, `seg_X_X` = a AI-segmented sub-element), `markText` (empty for pure graphic marks).
 
 **`searchResults.designPatent[]` fields:** `title`, `pn` (patent number), `imageUrl`/`imageKey`, `score` (0–1), `similarity` (`"XX.XX%"`), `loc` (Locarno classification, e.g. `"10-04"`), `grantDate`/`fillingDate`/`expiryDate` (`"YYYY/MM/DD"`), `imageID`, `countryCode`, `expired` (bool), `owners[]`, `reason`.
 
-**`searchResults.copyrightTrace` fields:** `entries[]` (each: `id`, `imageUrl`/`imageKey`, `title` of the matched page/product, `source` = the URL where it was found), `traceSummary` (AI summary of the matches), `analysis` (risk rollup — see below).
+**`searchResults.copyrightTrace` fields:** `entries[]` (each: `id`, `imageUrl`/`imageKey`, `title` of the matched page/product, `source` = the URL where it was found), `traceSummary` (AI summary of the matches), `analysis` (risk rollup — see below), `ipCheck` (VLM brand/IP recognition — see below).
 
 **`analysis` fields (copyright risk rollup):** `potentialRightsHolders` (string or `null`), `riskScore` (0–100), `riskLevel` (`low` 0–40 / `medium` 41–70 / `high` 71–90 / `critical` 91–100), `explanation` (plain-language reasoning), `matchedEntries[]` (IDs referencing `entries[]`).
 
@@ -152,7 +152,7 @@ print(response.json())
     "imageResults": [{
       "imageId": "img_1783862445431_0",
       "imageUrl": "https://...r2.cloudflarestorage.com/.../...png",
-      "detections": [],
+      "segments": [],
       "searchResults": {
         "designPatent": [{
           "title": "Scale", "pn": "D0935924",
@@ -189,7 +189,7 @@ Paginated list of the current API key's past search tasks.
 
 ```python
 import requests
-url = "https://*.api.trohub.com/v1/infringement/history"
+url = "https://api.trohub.com/v1/infringement/history"
 params = {"page": 1, "pageSize": 10}
 print(requests.get(url, headers={"X-API-Key": "YOUR_API_KEY"}, params=params).json())
 ```
@@ -201,7 +201,7 @@ Response `data`: `items[]` (each with `taskID`, `status`, `imageCount`, `element
 ## 4. Delete a task — `DELETE /infringement/task/:taskID`
 
 ```bash
-curl -X DELETE "https://*.api.trohub.com/v1/infringement/task/h0d0a0b3-f09c-4824-a745-0d29759c253h" \
+curl -X DELETE "https://api.trohub.com/v1/infringement/task/h0d0a0b3-f09c-4824-a745-0d29759c253h" \
   -H "X-API-Key: YOUR_API_KEY"
 ```
 Response: `{ "success": true, "message": "Task deleted successfully", "data": null }`
@@ -214,7 +214,7 @@ Response: `{ "success": true, "message": "Task deleted successfully", "data": nu
 
 ```python
 payload = {"taskIDs": ["h0d0a0b3-f09c-4824-a745-0d29759c253h", "i0e0b0b3-f09c-4824-a745-0d29759c253i"]}
-requests.post("https://*.api.trohub.com/v1/infringement/tasks/batch-delete",
+requests.post("https://api.trohub.com/v1/infringement/tasks/batch-delete",
               headers={"X-API-Key": "YOUR_API_KEY"}, json=payload)
 ```
 
@@ -222,7 +222,7 @@ requests.post("https://*.api.trohub.com/v1/infringement/tasks/batch-delete",
 
 Re-runs a failed (or old completed) task.
 ```bash
-curl -X POST "https://*.api.trohub.com/v1/infringement/task/h0d0a0b3-f09c-4824-a745-0d29759c253h/retry" \
+curl -X POST "https://api.trohub.com/v1/infringement/task/h0d0a0b3-f09c-4824-a745-0d29759c253h/retry" \
   -H "X-API-Key: YOUR_API_KEY"
 ```
 Response: `{ "success": true, "message": "Task retried successfully", "data": null }`

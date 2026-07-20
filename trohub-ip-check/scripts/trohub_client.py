@@ -354,7 +354,7 @@ class TrohubClient:
                 for e in (cr.get("entries") or [])[:3]:
                     lines.append(f"      source: {e.get('source')}")
 
-            qa = img.get("queryAssessment")
+            qa = img.get("searchResults", {}).get("copyrightTrace", {}).get("ipCheck")
             if qa:
                 lines.append(
                     f"  [Known-IP check] resembles known IP: {qa.get('resemblesKnownIP')} "
